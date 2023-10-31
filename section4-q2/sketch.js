@@ -15,4 +15,9 @@ function setup(){
   for(let i = 0; i < scores.length; i++){ total += scores[i]; }
 
   // BLANK[1]
+  fill(0);
+  for(let i = 0; i < scores.length; i++){
+    arc(width/2, height/2, 380, 380, scores[i-1]/total*PI, scores[i]/total*PI);
+   
+  }
 }

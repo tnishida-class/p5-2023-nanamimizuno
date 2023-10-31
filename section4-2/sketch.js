@@ -7,6 +7,7 @@ let balls;
 function setup(){
   createCanvas(windowWidth, windowHeight);
   balls = [];
+
 }
 
 function draw(){
@@ -23,7 +24,7 @@ function mouseDragged(){
   const dx = mouseX - pmouseX;
   const dy = mouseY - pmouseY;
   if(mag(dx, dy) > 5){
-    const b = { x: mouseX, y: mouseY, size: 20, vx: dx, vy: dy };
+    let b = { x: mouseX, y: mouseY, size: random(20,100), vx: dx, vy: dy };//sizeを20→random(20,100)へ
     balls.push(b);
   }
 }
