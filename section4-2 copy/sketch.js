@@ -2,25 +2,27 @@
 // 練習問題：ボールのサイズをランダムに変更してみよう
 // 練習問題：何も操作しなくてもボールが湧いてくる機能を追加しよう
 
-let balls;
+let shapes=[];
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
-  balls = [];
- 
 
 }
 
 function draw(){
-  background(25, 25, 112);
-  noStroke();
-  for(let i = 0; i < balls.length; i++){
-    let b = balls[i];
-    fill(255,204,0);
-    if(keyIsDown("A".charCodeAt(0))){  fill(255,105,180); } 
-    star(b.x, b.y, b.size);
-    b.x += b.vx;
-    b.y += b.vy;
+  background(25, 25, 112);//背景色をMidnightBlueに
+
+  for(let i = 0; i < shapes.length; i++){
+    let s = shapes[i];
+    fill(s.color)
+    if(s.type === 'star'){
+    star(s.x, s.y, s.size);}
+
+    else if(s.type === 'heart'){
+      heart(s.x,s.y,s.size);
+    }
+    s.x += s.vx;
+    s.y += s.vy; 
   }
   //月
   fill(240,230,140)
@@ -53,27 +55,40 @@ function star(cx, cy, r){
   endShape(CLOSE);
 }
 
-//ハートを描く
-function love(cx,cy,r){
-  noStroke();
+//♡をかく関数
+function heart(x, y, size) {
   beginShape();
-  for(var i = 0; i < 5; i++){
-    let theta = TWO_PI * i * 2 / 5 - HALF_PI;
-    let x = cx + cos(theta) * r;
-    let y = cy + sin(theta) * r;
-    vertex(x,y);
-  }
+  vertex(x, y);
+  bezierVertex(x - size / 2, y - size / 2, x - size, y + size / 3, x, y + size);
+  bezierVertex(x + size, y + size / 3, x + size / 2, y - size / 2, x, y);
   endShape(CLOSE);
 }
 
 function mouseDragged(){
   const dx = mouseX - pmouseX;
   const dy = mouseY - pmouseY;
-  if(mag(dx, dy) > 5){
-    let b = { x: mouseX, y: mouseY, size: random(20,100), vx: dx, vy: dy };//sizeを20→random(20,100)へ
-    balls.push(b);
+
+
+  const s ={
+    x: mouseX,
+    y: mouseY,
+    size: random(10, 100),
+    vx: dx+5,
+    vy: dy+5,
+  };
+
+  if (keyIsDown("A".charCodeAt(0))) {//Aを押しているときはハートに
+    s.type = 'heart';
+    s.color = color(255, 192, 203); // ピンクに
+  } else {
+    s.type = 'star';
+    s.color = color(255, 204, 0); // 黄色に
   }
-}
+
+  shapes.push(s);
+} 
+
+
 
 function windowResized(){
   resizeCanvas(windowWidth, windowHeight);
