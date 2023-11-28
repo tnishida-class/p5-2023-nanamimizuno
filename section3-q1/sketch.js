@@ -11,6 +11,16 @@ function setup(){
 function draw(){
   background(160, 192, 255);
   count = (count + 1) % cycle;
+
   // BLANK[1]
+  
+  if(count<cycle/2){size=count+50;}
+  else{size=(cycle-count)+50;}
+  
+  if(keyIsDown(" ".charCodeAt(0))){count+=5}
+
+
   ellipse(width / 2, height / 2, size);
+
+
 }

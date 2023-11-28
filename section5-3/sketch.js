@@ -27,6 +27,10 @@ function isLeapYear(y){
 
 function daysInYear(y){
   // BLANK[1]
+  if(y == isLeapYear(y)){
+    dayOfYear(y,12,31) == 366
+  }
+  else{dayOfYear(y,12,31)==365}
 }
 
 function daysInMonth(y, m){
@@ -51,6 +55,9 @@ function dayOfYear(y, m, d){
 
 function dayOfWeek(y, m, d){
   // BLANK[2]
+  //2001年1月1日は月曜日
+  dayOfWeek(2001,1,1) == 1
+
 }
 
 function dayOfWeekAsString(dow){
